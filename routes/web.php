@@ -14,5 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+//Route::get('/', function () {
+  //  return view('welcome');
+//});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
+    return view('dash.index');
+})->name('dash');
+
+Route::get('/dash/menu', function () {
+  return view('menu.productos');
+});
+
+Route::get('/dash/menu', function () {
+  return view('menu.Inventario');
 });
