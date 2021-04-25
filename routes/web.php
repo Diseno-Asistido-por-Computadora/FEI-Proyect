@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DashController;
+use App\Http\Controllers\ProvedoresController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,18 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-//Route::get('/', function () {
-  //  return view('welcome');
-//});
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
-    return view('dash.index');
-})->name('dash');
-
-Route::get('/dash/menu', function () {
-  return view('menu.productos');
-});
-
-Route::get('/dash/menu', function () {
-  return view('menu.Inventario');
-});
+Route::middleware(['auth:sanctum', 'verified'])->resource('dash', DashController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('proveedores', ProvedoresController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('clientes', ClientesController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('Productos', ProductosController::class);
+Route::middleware(['auth:sanctum', 'verified'])->resource('usuarios', UsuariosController::class);

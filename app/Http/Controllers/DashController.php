@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
 
-class ProductosController extends Controller
+class DashController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $Productos = Producto::all();
-        return view('productos.index')->with('Productos', $Productos);
+        return view("dash.index");
     }
 
     /**
@@ -25,7 +23,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view("productos.create");
+        //
     }
 
     /**
@@ -36,17 +34,7 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'nullable',
-            'preciodeventa' => 'required',
-            'preciodecosto' => 'required',
-            'existencia' =>'required'
-        ]);
-        
-        Producto::create($data);
-
-        return redirect('/Productos')->with('success', 'Producto creado correctamente.');   
+        //
     }
 
     /**
@@ -68,8 +56,7 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $Productos = Producto::findOrFail($id);
-        return view('Productos.update')->with('Productos', $Productos);
+        //
     }
 
     /**
@@ -81,17 +68,7 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'nombre' =>'required',
-            'descripcion' =>'required',
-            'preciodeventa' =>'required',
-            'preciodecosto' =>'required',
-            'existencia' =>'required'
-        ]);
-        
-        Producto::whereId($id)->update($data);
-
-        return redirect('/Productos')->with('success', 'Producto modificado correctamente.');
+        //
     }
 
     /**
@@ -102,9 +79,6 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        $Productos = Producto::findOrFail($id);
-        $Productos->delete();
-
-        return redirect('/Productos')->with('success', 'Producto eliminado correctamente.');;
+        //
     }
 }

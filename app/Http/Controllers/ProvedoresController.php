@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Models\Proveedor;
 
-class ProductosController extends Controller
+class ProvedoresController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $Productos = Producto::all();
-        return view('productos.index')->with('Productos', $Productos);
+        $proveedores = Proveedor::all();
+        return view('proveedores.index')->with('proveedores', $proveedores);    
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +24,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view("productos.create");
+        return view('proveedores.create');
     }
 
     /**
@@ -38,15 +37,14 @@ class ProductosController extends Controller
     {
         $data = $request->validate([
             'nombre' => 'required',
-            'descripcion' => 'nullable',
-            'preciodeventa' => 'required',
-            'preciodecosto' => 'required',
-            'existencia' =>'required'
+            'direccion' => 'nullable',
+            'telefono' => 'nullable',
+            'email' => 'nullable'
         ]);
-        
-        Producto::create($data);
 
-        return redirect('/Productos')->with('success', 'Producto creado correctamente.');   
+        Proveedor::create($data);
+
+        return redirect('/proveedores')->with('success', 'Proveedor Ingresado Correctamente...');
     }
 
     /**
@@ -68,8 +66,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $Productos = Producto::findOrFail($id);
-        return view('Productos.update')->with('Productos', $Productos);
+        $proveedor = Proveedor::findOrFail($id);
+        return view('proveedores.update')->with('proveedor', $proveedor);
     }
 
     /**
@@ -82,16 +80,14 @@ class ProductosController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'nombre' =>'required',
-            'descripcion' =>'required',
-            'preciodeventa' =>'required',
-            'preciodecosto' =>'required',
-            'existencia' =>'required'
+            'nombre' => 'required',
+            'direccion' => 'nullable',
+            'telefono' => 'nullable',
+            'email' => 'nullable'
         ]);
-        
-        Producto::whereId($id)->update($data);
 
-        return redirect('/Productos')->with('success', 'Producto modificado correctamente.');
+        Proveedor::whereId($id)->update($data);
+        return redirect('/proveedores')->with('success', 'Proveedor Modificado Correctamente...');
     }
 
     /**
@@ -102,9 +98,8 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        $Productos = Producto::findOrFail($id);
-        $Productos->delete();
-
-        return redirect('/Productos')->with('success', 'Producto eliminado correctamente.');;
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
+        return redirect('/proveedores')->with('deleted', 'Proveedor Eliminado Correctamente...');
     }
 }

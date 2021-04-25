@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Models\Cliente;
 
-class ProductosController extends Controller
+class ClientesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $Productos = Producto::all();
-        return view('productos.index')->with('Productos', $Productos);
+        $clientes = Cliente::all();
+        return view('clientes.index')->with('cliente', $clientes);
     }
 
     /**
@@ -25,8 +25,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        return view("productos.create");
-    }
+        return view("clientes.create");    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,15 +37,14 @@ class ProductosController extends Controller
     {
         $data = $request->validate([
             'nombre' => 'required',
-            'descripcion' => 'nullable',
-            'preciodeventa' => 'required',
-            'preciodecosto' => 'required',
-            'existencia' =>'required'
+            'direccion' => 'nullable',
+            'telefono' => 'nullable',
+            'Correo' => 'nullable',
         ]);
         
-        Producto::create($data);
+        Cliente::create($data);
 
-        return redirect('/Productos')->with('success', 'Producto creado correctamente.');   
+        return redirect('/clientes')->with('success', 'Cliente creado correctamente.'); 
     }
 
     /**
@@ -68,8 +66,8 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
-        $Productos = Producto::findOrFail($id);
-        return view('Productos.update')->with('Productos', $Productos);
+        $clientes=Cliente::findOrFail($id);
+        return view('clientes.update')->with('clientes', $clientes);
     }
 
     /**
@@ -82,16 +80,15 @@ class ProductosController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            'nombre' =>'required',
-            'descripcion' =>'required',
-            'preciodeventa' =>'required',
-            'preciodecosto' =>'required',
-            'existencia' =>'required'
+            'nombre' => 'required',
+            'direccion' => 'nullable',
+            'telefono' => 'nullable',
+            'Correo' => 'nullable',
         ]);
         
-        Producto::whereId($id)->update($data);
+        Cliente::whereId($id)->update($data);
 
-        return redirect('/Productos')->with('success', 'Producto modificado correctamente.');
+        return redirect('/clientes')->with('success', 'clientes modificado correctamente.');
     }
 
     /**
@@ -102,9 +99,9 @@ class ProductosController extends Controller
      */
     public function destroy($id)
     {
-        $Productos = Producto::findOrFail($id);
-        $Productos->delete();
+        $clientes = Cliente::findOrFail($id);
+        $clientes->delete();
 
-        return redirect('/Productos')->with('success', 'Producto eliminado correctamente.');;
+        return redirect('/clientes')->with('success', 'cliente eliminado correctamente.');;
     }
 }
